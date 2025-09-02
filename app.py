@@ -36,16 +36,22 @@ DEVICE = get_device()
 
 # --------- ensure model is present (auto-download via download_model.py) ---------
 def ensure_model(ckpt_path=CKPT_PATH):
+    from pathlib import Path
+    if Path(ckpt_path).exists():
+        return
+    st.info("Downloading model (~90 MB) from GitHub Release…")
+    try:
+        import download_model
+        rc = download_model.main()   # <-- actually run the download
+        if rc != 0:
+            st.error("Model downloader returned a non-zero code.")
+            st.stop()
+    except Exception as e:
+        st.error(f"Auto-download failed: {e}")
+        st.stop()
     if not Path(ckpt_path).exists():
-        st.info("Downloading model (~90 MB) from GitHub Release…")
-        try:
-            import download_model  # runs and saves to repo root
-        except Exception as e:
-            st.error(f"Auto-download failed: {e}")
-            st.stop()
-        if not Path(ckpt_path).exists():
-            st.error("Model download did not complete. Check MODEL_URL in download_model.py.")
-            st.stop()
+        st.error("Model download did not complete. Check MODEL_URL in download_model.py.")
+        st.stop()
 
 ensure_model()
 
