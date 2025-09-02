@@ -1,0 +1,21 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+
+# jupyter
+.ipynb_checkpoints/
+
+# data & models
+data/
+bigdata/
+data_large/
+*.pt
+*.pth
+
+# envs & os
+.venv/
+env/
+venv/
+.DS_Store
+.vscode/
