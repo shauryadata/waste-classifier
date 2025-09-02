@@ -63,3 +63,13 @@ Below are **3 sample predictions** from the Streamlit dashboard with Grad-CAM ex
 | Glass Bottle | ![Glass 1](assets/sample-papercup.png) |  
 | Glass Bottle (variation) | ![Glass 2](assets/sample-papercup1.png) |  
 | Glass Bottle (studio) | ![Glass 3](assets/sample-papercup2.png) |  
+
+## 🔮 Possible Improvements
+- Train longer on a larger dataset (10k+ images)
+- Experiment with ConvNeXt / ViT models
+- Add real-time webcam classification
+- Deploy on HuggingFace Spaces or Streamlit Cloud
+
+## 📜 License
+
+MIT License © 2025 Shauryaditya Singh
