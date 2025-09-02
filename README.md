@@ -48,14 +48,18 @@ Built using **PyTorch**, **timm models**, and a custom **Streamlit dashboard** w
 ✔️ Easy deployment-ready structure  
 
 
-🔮 Possible Improvements
-	•	Train longer on a larger dataset (10k+ images)
-	•	Experiment with ConvNeXt / ViT models
-	•	Add real-time webcam classification
-	•	Deploy on HuggingFace Spaces or Streamlit Cloud
+## 🖼️ Sample Results  
 
-⸻
+Below are **3 sample predictions** from the Streamlit dashboard with Grad-CAM explanations.
 
-📜 License
-
-MIT License © 2025 Shauryaditya Singh
+| Example | Prediction Screenshot |  
+|---------|------------------------|  
+| Paper Cup | ![Paper Cup](assets/sample-cup.png) |  
+| Paper Cup (variation) | ![Paper Cup 2](assets/sample-cup1.png) |  
+| Paper Cup (white) | ![Paper Cup 3](assets/sample-cup2.png) |  
+| Metal Can | ![Metal Can](assets/sample-can.png) |  
+| Metal Can (variation) | ![Metal Can 2](assets/sample-can1.png) |  
+| Metal Can (studio) | ![Metal Can 3](assets/sample-can2.png) |  
+| Glass Bottle | ![Glass 1](assets/sample-papercup.png) |  
+| Glass Bottle (variation) | ![Glass 2](assets/sample-papercup1.png) |  
+| Glass Bottle (studio) | ![Glass 3](assets/sample-papercup2.png) |  
