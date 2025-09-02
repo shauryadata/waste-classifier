@@ -1,4 +1,4 @@
-# ♻️ Waste Classifier — Deep Learning with ResNet-50 + Grad-CAM  
+# ♻️ Waste Classifier - Deep Learning with ResNet-50 + Grad-CAM  
 
 A deep learning project to classify household waste into **cardboard, glass, metal, paper, plastic, and trash**.  
 Built using **PyTorch**, **timm models**, and a custom **Streamlit dashboard** with Grad-CAM explanations.  
@@ -46,3 +46,16 @@ Built using **PyTorch**, **timm models**, and a custom **Streamlit dashboard** w
 ✔️ Test-Time Augmentation (TTA)  
 ✔️ Streamlit Dashboard with adjustable confidence threshold  
 ✔️ Easy deployment-ready structure  
+
+
+🔮 Possible Improvements
+	•	Train longer on a larger dataset (10k+ images)
+	•	Experiment with ConvNeXt / ViT models
+	•	Add real-time webcam classification
+	•	Deploy on HuggingFace Spaces or Streamlit Cloud
+
+⸻
+
+📜 License
+
+MIT License © 2025 Shauryaditya Singh
