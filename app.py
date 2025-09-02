@@ -1,9 +1,10 @@
 # app.py — Waste Classifier (ResNet-50, TTA, Abstain w/ top-2)
 import os
-os.environ["MPLBACKEND"] = "Agg"
+os.environ["MPLBACKEND"] = "Agg"  # headless Matplotlib for Streamlit
 
 import io
 import numpy as np
+from pathlib import Path
 from PIL import Image
 
 import streamlit as st
@@ -27,12 +28,28 @@ CKPT_PATH = "waste_resnet50_large_ft.pt"
 def get_device():
     if torch.cuda.is_available():
         return "cuda"
-    elif torch.backends.mps.is_available():
+    elif getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
         return "mps"
     return "cpu"
 
 DEVICE = get_device()
 
+# --------- ensure model is present (auto-download via download_model.py) ---------
+def ensure_model(ckpt_path=CKPT_PATH):
+    if not Path(ckpt_path).exists():
+        st.info("Downloading model (~90 MB) from GitHub Release…")
+        try:
+            import download_model  # runs and saves to repo root
+        except Exception as e:
+            st.error(f"Auto-download failed: {e}")
+            st.stop()
+        if not Path(ckpt_path).exists():
+            st.error("Model download did not complete. Check MODEL_URL in download_model.py.")
+            st.stop()
+
+ensure_model()
+
+# ---------------------------- model load (cached) ----------------------------
 @st.cache_resource
 def load_model_and_classes(ckpt_path=CKPT_PATH):
     ckpt = torch.load(ckpt_path, map_location="cpu")
@@ -53,18 +70,22 @@ base_tf = transforms.Compose([
 ])
 
 def tta_batch(pil_img: Image.Image):
+    """Create a small batch of augmented views for test-time augmentation."""
     w, h = pil_img.size
     ims = [pil_img]
+    # horizontal flip
     ims.append(pil_img.transpose(Image.FLIP_LEFT_RIGHT))
+    # center crop (90%) then resize back
     s = int(min(w, h) * 0.9)
     left = (w - s)//2; top = (h - s)//2
     ims.append(pil_img.crop((left, top, left+s, top+s)).resize((w, h), Image.BICUBIC))
+    # padded resize
     pad = int(min(w, h) * 0.05)
     padded = Image.new("RGB", (w+2*pad, h+2*pad), (255,255,255))
     padded.paste(pil_img, (pad, pad))
     ims.append(padded.resize((w, h), Image.BICUBIC))
     xs = [base_tf(im).unsqueeze(0) for im in ims]
-    return torch.cat(xs, dim=0)
+    return torch.cat(xs, dim=0)  # [T, C, H, W]
 
 def predict_with_tta(pil_img: Image.Image):
     xb = tta_batch(pil_img).to(DEVICE)
@@ -78,20 +99,23 @@ def predict_with_tta(pil_img: Image.Image):
 def get_target_layer(m):
     if hasattr(m, "layer4"):
         return m.layer4[-1]
+    # fallback: last Conv2d
     last = None
     for mod in m.modules():
         if isinstance(mod, torch.nn.Conv2d):
             last = mod
     return last
 
-# ---------- UI ----------
+# ------------------------------- UI -------------------------------
 st.title("♻️ Waste Classifier — ResNet-50 (TTA)")
 st.caption("Upload an image. The app averages multiple views (TTA) and abstains when confidence is low.")
 
 col1, col2 = st.columns([2,1])
 with col2:
-    threshold = st.slider("Abstain threshold", 0.30, 0.90, 0.55, 0.01,
-                          help="If top-1 probability is below this, the app abstains instead of forcing a label.")
+    threshold = st.slider(
+        "Abstain threshold", 0.30, 0.90, 0.55, 0.01,
+        help="If top-1 probability is below this, the app abstains instead of forcing a label."
+    )
     force_predict = st.checkbox("Force predict (ignore threshold)", value=False)
     show_cam = st.checkbox("Show Grad-CAM (if available)", value=False)
 
