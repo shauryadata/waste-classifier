@@ -56,15 +56,15 @@ Below are **3 sample predictions** from the Streamlit dashboard with Grad-CAM ex
 
 | Example | Prediction Screenshot |  
 |---------|------------------------|  
-| Paper Cup | ![Paper Cup](assets/sample-cup.png) |  
-| Paper Cup | ![Paper Cup 2](assets/sample-cup1.png) |  
-| Paper Cup | ![Paper Cup 3](assets/sample-cup2.png) |  
+| Coffee Cup | ![Cup](assets/sample-cup.png) |  
+| Coffee Cup | ![Paper Cup 2](assets/sample-cup1.png) |  
+| Coffee Cup | ![Paper Cup 3](assets/sample-cup2.png) |  
 | Metal Can | ![Metal Can](assets/sample-can.png) |  
 | Metal Can | ![Metal Can 2](assets/sample-can1.png) |  
 | Metal Can | ![Metal Can 3](assets/sample-can2.png) |  
-| Coffee Cup | ![Cup](assets/sample-papercup.png) |  
-| Coffee Cup | ![Cup](assets/sample-papercup1.png) |  
-| Coffee Cup | ![Cup](assets/sample-papercup2.png) |  
+| Paper Cup | ![Paper Cup](assets/sample-papercup.png) |  
+| Paper Cup | ![Paper Cup](assets/sample-papercup1.png) |  
+| Paper Cup | ![Paper Cup](assets/sample-papercup2.png) |  
 
 ---
 
