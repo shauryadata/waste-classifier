@@ -1,0 +1,11 @@
+torch
+torchvision
+timm>=0.9.12
+streamlit>=1.34
+pillow
+numpy
+tqdm
+scikit-learn
+matplotlib
+# Grad-CAM is optional; app works without it. Remove if it causes install issues.
+pytorch-grad-cam ; platform_system != "Darwin" or python_version < "3.12"
