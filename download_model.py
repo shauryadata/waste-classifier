@@ -3,7 +3,7 @@ import os, urllib.request, sys, hashlib
 
 MODEL_PATH = "waste_resnet50_large_ft.pt"
 # paste the asset URL here:
-MODEL_URL  = "https://github.com/<your-username>/waste-classifier/releases/download/v1.0/waste_resnet50_large_ft.pt"
+MODEL_URL  = "https://github.com/shauryadata/waste-classifier/releases/download/v1.0/waste_resnet50_large_ft.pt"
 MODEL_SHA256 = None  
 
 def sha256_of(path):
