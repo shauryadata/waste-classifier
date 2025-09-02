@@ -73,6 +73,8 @@ Below are **3 sample predictions** from the Streamlit dashboard with Grad-CAM ex
 
 Try it here: https://waste-classifier-8386.streamlit.app/ 
 
+---
+
 ## 🔮 Possible Improvements
 - Train longer on a larger dataset (10k+ images)
 - Experiment with ConvNeXt / ViT models
